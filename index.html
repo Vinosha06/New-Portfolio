@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinosha Sewmini — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1220;
+    --bg-2:#1B3A66;
+    --bg-panel:#141F33;
+    --bg-panel-2:#1B2A44;
+    --ink:#EDEFF3;
+    --ink-soft:#B4B9C4;
+    --muted:#767C89;
+    --accent:#7C9CBF;      /* steel blue */
+    --accent-2:#C7A466;    /* muted brass gold */
+    --line: rgba(237,239,243,0.10);
+    --radius: 6px;
+    --display: 'Fraunces', serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --maxw: 1080px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: linear-gradient(165deg, var(--bg) 0%, var(--bg) 42%, var(--bg-2) 100%);
+    background-attachment: fixed;
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--accent); color:var(--bg);}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  #stars{
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    z-index:0; pointer-events:none; display:block;
+  }
+  header, .hero, section, footer{position:relative; z-index:1;}
+
+  /*  NAV  */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(10,18,32,0.82);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:var(--maxw); margin:0 auto; padding:20px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--display); font-weight:600; font-size:19px;
+    color:var(--ink); letter-spacing:0.2px;
+  }
+  .navlinks{display:flex; gap:32px; font-size:14.5px;}
+  .navlinks a{color:var(--ink-soft); transition:color .2s; padding-bottom:2px; border-bottom:1px solid transparent;}
+  .navlinks a:hover{color:var(--accent); border-color:var(--accent);}
+  .menu-btn{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-btn span{width:22px; height:2px; background:var(--ink);}
+
+  /*  HERO  */
+  .hero{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding-top:100px; padding-bottom:60px;
+    position:relative;
+  }
+  .hero .wrap{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    width:100%;
+  }
+  .avatar{
+    width:280px; height:280px; border-radius:50%; overflow:hidden;
+    border:4px solid var(--bg-panel); box-shadow:0 0 0 3px var(--accent), 0 20px 44px rgba(0,0,0,0.45);
+    margin-bottom:30px; background:var(--bg-panel-2);
+  }
+  .avatar img{width:100%; height:100%; object-fit:cover;}
+  .avatar-fallback{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:600; font-size:44px; color:var(--accent);
+    background:var(--bg-panel-2);
+  }
+  h1.name{
+    font-family:var(--display); font-weight:600; font-style:normal;
+    font-size:clamp(38px, 5.6vw, 60px);
+    line-height:1.08; letter-spacing:-0.5px;
+    margin-bottom:16px; color:var(--ink);
+  }
+  .role{
+    font-family:var(--body); font-size:clamp(15px,1.6vw,17px); color:var(--ink-soft);
+    margin-bottom:22px; font-weight:500;
+    display:flex; align-items:center; gap:10px; justify-content:center;
+  }
+  .role::before, .role::after{content:''; width:34px; height:1px; background:var(--line);}
+  .summary{max-width:480px; color:var(--ink-soft); font-size:16px; margin-bottom:34px;}
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-bottom:30px;}
+  .btn{
+    font-family:var(--body); font-size:14.5px; font-weight:500; padding:13px 26px; border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:8px; transition:all .2s ease; cursor:pointer; border:1.5px solid var(--ink);
+  }
+  .btn-primary{background:var(--ink); color:var(--bg);}
+  .btn-primary:hover{background:var(--accent); border-color:var(--accent); transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px);}
+
+  section{padding:100px 0;}
+  .sec-head{margin-bottom:50px; text-align:left;}
+  .sec-num{font-family:var(--mono); color:var(--accent-2); font-size:13px; margin-bottom:10px; display:block; letter-spacing:1px;}
+  h2{font-family:var(--display); font-size:clamp(28px,3.4vw,38px); font-weight:600; font-style:normal; letter-spacing:-0.3px; color:var(--ink);}
+  .sec-sub{color:var(--ink-soft); max-width:560px; margin-top:12px; font-size:15px;}
+
+  /*  ABOUT  */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .about-text{color:var(--ink-soft); font-size:16.5px;}
+  .about-text p{margin-bottom:18px;}
+  .about-text strong{color:var(--ink); font-weight:600;}
+  .stat-list{display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line);}
+  .stat{display:flex; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .stat .k{color:var(--muted);}
+  .stat .v{color:var(--ink); font-weight:500;}
+
+  /*  SKILLS  */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .skill-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px 22px;
+    transition:box-shadow .2s ease, transform .2s ease;
+  }
+  .skill-card:hover{box-shadow:0 10px 24px rgba(0,0,0,0.35); transform:translateY(-2px);}
+  .skill-card h3{font-family:var(--display); font-weight:600; font-size:16px; color:var(--accent); margin-bottom:14px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{font-size:12.5px; color:var(--ink-soft); border:1px solid var(--line); background:var(--bg-panel-2); padding:6px 11px; border-radius:20px; transition:all .2s;}
+  .chip:hover{border-color:var(--accent); color:var(--accent);}
+
+  /*  PROJECTS  */
+  .project{
+    display:grid; grid-template-columns:70px 1fr; gap:24px;
+    padding:36px 0; border-top:1px solid var(--line);
+  }
+  .project:last-child{border-bottom:1px solid var(--line);}
+  .project-index{font-family:var(--mono); color:var(--accent-2); font-size:15px; padding-top:4px;}
+  .project-title{font-family:var(--display); font-size:22px; font-weight:600; font-style:normal; margin-bottom:12px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; color:var(--ink);}
+  .project-title a{display:inline-flex; align-items:center; gap:6px; font-family:var(--body); font-size:12.5px; font-weight:500; color:var(--ink-soft); border:1px solid var(--line); padding:5px 12px; border-radius:20px; transition:all .2s;}
+  .project-title a:hover{color:var(--accent); border-color:var(--accent);}
+  .project ul{color:var(--ink-soft); font-size:15px; padding-left:18px;}
+  .project ul li{margin-bottom:8px;}
+  .project ul li::marker{color:var(--accent-2);}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+
+  /*  EDUCATION  */
+  .timeline{position:relative; padding-left:32px;}
+  .timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:40px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:''; position:absolute; left:-32px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--bg); border:2px solid var(--accent);}
+  .tl-year{font-family:var(--mono); color:var(--accent-2); font-size:13px; margin-bottom:6px; letter-spacing:0.5px;}
+  .tl-title{font-family:var(--display); font-size:18px; font-weight:600; margin-bottom:4px; color:var(--ink);}
+  .tl-place{color:var(--ink-soft); font-size:14px;}
+  .cert-badge{
+    margin-top:34px; display:inline-flex; align-items:center; gap:12px;
+    border:1px solid var(--line); background:var(--bg-panel);
+    padding:14px 20px; border-radius:var(--radius); font-size:14px; color:var(--ink-soft);
+  }
+
+  /*  CONTACT / FOOTER  */
+  .contact{
+    background:var(--bg-panel-2); border-top:1px solid var(--line);
+  }
+  .contact .wrap{padding:100px 28px 56px;}
+  .contact h2{margin-bottom:18px;}
+  .contact-sub{color:var(--ink-soft); max-width:480px; margin-bottom:40px;}
+  .contact-links{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:50px;}
+  .clink{background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px 18px; display:flex; flex-direction:column; gap:10px; transition:box-shadow .2s, transform .2s;}
+  .clink:hover{box-shadow:0 10px 24px rgba(0,0,0,0.35); transform:translateY(-2px);}
+  .clink svg{width:17px; height:17px; stroke:var(--accent);}
+  .clink .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;}
+  .clink .value{font-size:13.5px; color:var(--ink); word-break:break-word;}
+  footer{display:flex; justify-content:center; align-items:center; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (max-width: 860px){
+    .avatar{width:200px; height:200px;}
+    .navlinks{display:none;}
+    .menu-btn{display:flex;}
+    .about-grid{grid-template-columns:1fr; gap:32px;}
+    .skills-grid{grid-template-columns:1fr;}
+    .contact-links{grid-template-columns:repeat(2,1fr);}
+    .project{grid-template-columns:1fr;}
+    .project-index{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<header>
+  <nav>
+    <div class="logo">Vinosha Sewmini</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<div id="mobileMenu" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:99; flex-direction:column; align-items:center; justify-content:center; gap:28px; font-family:var(--display); font-size:22px;">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="avatar">
+      <img src="profile.jpg" alt="Vinosha Sewmini">
+    </div>
+    <h1 class="name">Vinosha Sewmini</h1>
+    <div class="role">Full-Stack Developer &amp; IT Undergraduate</div>
+    <p class="summary">I turn system requirements into functional, scalable software — full-stack, databases, and QA.</p>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      <a href="Vinosha_Sewmini_CV.docx" download class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm an <strong>IT undergraduate</strong> at the Institute of Technology, University of Moratuwa, with a foundation in full-stack development, databases, and networking.</p>
+        <p>I like <strong>turning requirements into working software</strong> — from AI-driven matching engines to secure identity systems — and I'm currently looking for a <strong>Software Engineering Internship</strong>.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat"><span class="k">Based in</span><span class="v">Sri Lanka</span></div>
+        <div class="stat"><span class="k">Studying</span><span class="v">Information Technology</span></div>
+        <div class="stat"><span class="k">Institution</span><span class="v">ITUM (2025 – Present)</span></div>
+        <div class="stat"><span class="k">Looking for</span><span class="v">Software Engineering Internship</span></div>
+        <div class="stat"><span class="k">Certified</span><span class="v">Generative AI for Educators — Google</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2>Skills</h2>
+      <p class="sec-sub">A working set across programming, web development, data, networking, and quality assurance.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h3>Programming</h3>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">TypeScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Web &amp; Backend</h3>
+        <div class="chip-row">
+          <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">RESTful APIs</span><span class="chip">Full-Stack Dev</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Databases</h3>
+        <div class="chip-row">
+          <span class="chip">SQL</span><span class="chip">Database Design</span><span class="chip">Implementation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>QA &amp; Testing</h3>
+        <div class="chip-row">
+          <span class="chip">Manual Testing</span><span class="chip">Functional Testing</span><span class="chip">API Testing</span><span class="chip">Boundary Value Analysis</span><span class="chip">Test Case Design</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Networking</h3>
+        <div class="chip-row">
+          <span class="chip">LAN/WAN</span><span class="chip">IP Subnetting</span><span class="chip">VLANs</span><span class="chip">IPv4/IPv6</span><span class="chip">Router Config</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="chip-row">
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Agile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2>Selected work</h2>
+    </div>
+    <div class="reveal">
+      <div class="project">
+        <div class="project-index">1</div>
+        <div>
+          <div class="project-title">DocRoad - Roadside Vehicle Repair & Assistance System
+            <a href="https://github.com/DocRoad/docroad-web-admin.git" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub</a>
+          </div>
+          <ul>
+            <li>Developed a full-stack roadside vehicle repair and emergency assistance system connecting drivers and mechanics.</li>
+            <li>Built an interactive React administration dashboard with real-time ticket tracking, status management, and search features.</li>
+            <li>Streamlined end-to-end breakdown workflows, enabling efficient service request handling and real-time operational updates.</li>
+            <li>Implemented role-based access control, secure authentication, and a robust database schema for user and service data management.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="chip">AI/NLP</span><span class="chip">React</span><span class="chip">Socket.IO</span><span class="chip">Flutter</span><span class="chip">Dashboards</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-index">2</div>
+        <div>
+          <div class="project-title">TripMind AI - AI-Driven Hyper-Personalized Itinerary Planner
+            <a href="https://github.com/Vinosha06/AI-Trip-Planner.git" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub</a>
+          </div>
+          <ul>
+            <li>Developed an AI-powered travel planning web application that creates personalized itineraries based on destination, budget, interests, mood, and travel style.</li>
+            <li>Integrated OpenAI, Google Places API, and OpenWeather API for smart recommendations, place discovery, and weather-based plan adjustments.</li>
+            <li>The system can adapt recommendations based on changing conditions such as weather and travel situations, while helping users discover places that match their preferences.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="chip">React</span><span class="chip">MongoDB Atlas</span><span class="chip">Python</span><span class="chip">Weather API</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-index">3</div>
+        <div>
+          <div class="project-title">AI-Powered Job Portal
+            <a href="https://github.com/Vinosha06/AI-Job-Portal.git" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub</a>
+          </div>
+          <ul>
+            <li>An intelligent recruitment platform connecting job seekers and employers through automated candidate–job matching.</li>
+            <li>AI/NLP-driven resume parsing and skill-matching to score candidate suitability against job postings.</li>
+            <li>Responsive dashboards for applicant tracking, job posting management, and advanced candidate filtering.</li>
+            <li>Role-based access control, secure authentication, and an optimized database architecture.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="chip">AI/NLP</span><span class="chip">RBAC</span><span class="chip">Full-Stack</span><span class="chip">Dashboards</span>
+          </div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-index">4</div>
+        <div>
+          <div class="project-title">User Management System
+            <a href="https://github.com/Vinosha06/User_Management_System.git" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub</a>
+          </div>
+          <ul>
+            <li>A secure identity and access management system with full CRUD functionality for user profile management.</li>
+            <li>Role-based access control paired with robust authentication protocols — JWT and bcrypt password hashing — for data security.</li>
+            <li>RESTful APIs for registration, authentication flow, role assignment, and administrative management.</li>
+            <li>An intuitive interface backed by thorough input validation and error handling.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="chip">JWT</span><span class="chip">bcrypt</span><span class="chip">RBAC</span><span class="chip">REST APIs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2>Academic path</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-year">2025 — Present</div>
+        <div class="tl-title">Institute of Technology, University of Moratuwa</div>
+        <div class="tl-place">Information Technology &middot; Sri Lanka &middot; GPA: Pending / 4.00</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2020 — 2022</div>
+        <div class="tl-title">Thambuttegama National Central College</div>
+        <div class="tl-place">G.C.E. Advanced Level — Physical Science Stream &middot; Anuradhapura, Sri Lanka</div>
+      </div>
+    </div>
+    <div class="cert-badge reveal">🎓 Google Certified — Generative AI for Educators</div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="sec-num">05</span>
+      <h2>Contact</h2>
+      <p class="contact-sub">Open to Software Engineering internship opportunities — reach out through any of the channels below.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a class="clink" href="mailto:vinoshaseumini@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg>
+        <span class="label">Email</span>
+        <span class="value">vinoshaseumini@gmail.com</span>
+      </a>
+      <a class="clink" href="tel:+94740454010">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span class="label">Phone</span>
+        <span class="value">+94 74 045 4010</span>
+      </a>
+      <a class="clink" href="https://github.com/Vinosha06" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <span class="label">GitHub</span>
+        <span class="value">Vinosha06</span>
+      </a>
+      <a class="clink" href="https://www.linkedin.com/in/vinosha-sewmini-044b5a35b/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <span class="label">LinkedIn</span>
+        <span class="value">vinosha-sewmini</span>
+      </a>
+    </div>
+    <footer>
+      <span>© 2026 Vinosha Sewmini</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.style.display === 'flex';
+    mobileMenu.style.display = isOpen ? 'none' : 'flex';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.style.display = 'none'));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---------- Starfield background ----------
+  (function(){
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w, h, stars;
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = document.documentElement.scrollHeight;
+    }
+
+    function makeStars(){
+      const count = Math.round((w * h) / 22000);
+      stars = Array.from({ length: Math.min(count, 90) }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 0.6 + 0.3,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.12,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.008 + Math.random() * 0.018,
+        hue: Math.random() < 0.15 ? 42 : 205 // mostly cool white-blue, a few warm gold
+      }));
+    }
+
+    function step(){
+      ctx.clearRect(0, 0, w, h);
+      for (const s of stars){
+        if (!reduceMotion){
+          s.x += s.vx;
+          s.y += s.vy;
+          if (s.x < 0 || s.x > w) s.vx *= -1;
+          if (s.y < 0 || s.y > h) s.vy *= -1;
+          s.phase += s.speed;
+        }
+        const twinkle = (Math.sin(s.phase) + 1) / 2; // 0..1
+        const alpha = 0.3 + twinkle * 0.6;
+        const glow = s.r * 1.4;
+        ctx.beginPath();
+        const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glow * 2);
+        grad.addColorStop(0, `hsla(${s.hue}, 70%, 82%, ${alpha})`);
+        grad.addColorStop(1, `hsla(${s.hue}, 70%, 82%, 0)`);
+        ctx.fillStyle = grad;
+        ctx.arc(s.x, s.y, glow * 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${s.hue}, 60%, 92%, ${Math.min(alpha + 0.2, 1)})`;
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+
+    resize();
+    makeStars();
+    step();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { resize(); makeStars(); }, 200);
+    });
+  })();
+</script>
+
+</body>
+</html>
